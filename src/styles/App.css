@@ -1,0 +1,8 @@
+body {
+  overflow-x: hidden;
+  background: #000024;
+  background-size: 100%;
+  font-family: 'Oswald', Helvetica, sans-serif;
+  color: white;
+  margin: 0;
+}

@@ -1,0 +1,11 @@
+.MuiCard-root {
+  margin-bottom: 50px;
+
+  & .shown {
+    display: inline-block;
+  }
+
+  & .hidden {
+    display: none;
+  }
+}

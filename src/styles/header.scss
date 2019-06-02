@@ -1,0 +1,197 @@
+//$colors: #dc2671, #2bb8f0;
+$colors: #2bb8f0;
+$max: length($colors);
+$dash: 60;
+$dash-gap: 30;
+$dash-space: $dash * ($max - 1) + $dash-gap * $max;
+$time: 15s;
+$time-step: $time/$max;
+
+/* Main styles */
+@import url("https://fonts.googleapis.com/css?family=Oswald:300,400,500|Monoton&display=swap");
+
+.text {
+  fill: none;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  stroke-dasharray: $dash $dash-space;
+  stroke-dashoffset: 0;
+  -webkit-animation: stroke $time infinite linear;
+  animation: stroke $time infinite linear;
+  
+  @for $item from 1 through $max {
+    &:nth-child(#{$max}n + #{$item}) {
+      $color: nth($colors, $item);
+      
+      stroke: $color;
+      -webkit-animation-delay: -($time-step * $item);
+      animation-delay: -($time-step * $item);
+    }
+  }
+
+  @media (min-width: 768px) { 
+    text-shadow: 0px 0px 5em blue;
+  }
+}
+
+polygon {
+  filter:none;
+  @media (min-width: 768px) { 
+    filter: url(#glow);
+  }
+}
+
+
+.cls-1 {
+  stroke-width: 0.75;
+  stroke-dasharray: 300 $dash-space;
+}
+
+
+@-webkit-keyframes stroke {
+  100% {
+    stroke-dashoffset: -($dash + $dash-gap) * $max;
+  }
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: -($dash + $dash-gap) * $max;
+  }
+}
+
+#s-text, #s-text2 {
+  font-size: 5em;
+  font-family: 'Monoton', Impact, sans-serif;
+  text-transform: uppercase;
+}
+
+
+
+
+svg {
+  width: 96%;
+  height: 100%;
+  z-index: 9;
+  max-width: 600px;
+  margin: auto;
+  display: block;
+}
+
+canvas {
+  display: block;
+  vertical-align: bottom;
+} 
+/* ---- particles.js container ---- */
+.particlec {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: 50% 50%;
+}
+/* ---- stats.js ---- */
+.count-particles {
+  background: #000022;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 80px;
+  color: #13e8e9;
+  font-size: 0.8em;
+  text-align: left;
+  text-indent: 4px;
+  line-height: 14px;
+  padding-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+.js-count-particles {
+  font-size: 1.1em;
+}
+#stats,
+.count-particles {
+  -webkit-user-select: none;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+#stats {
+  border-radius: 3px 3px 0 0;
+  overflow: hidden;
+}
+.count-particles {
+  border-radius: 0 0 3px 3px;
+}
+
+#header {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9;
+
+  & #logo {
+    margin-top: 90px;
+    padding-top: 10px;
+    
+    transition: all 1s ease-in-out;
+  
+    & .surname {
+      transition: opacity 0.4s;
+    }
+    
+  }
+
+  & .intro {
+    font-size: 1.8em;
+    text-transform: uppercase;
+    color: #fffce4;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  &.small {
+
+    & polygon {
+      filter:none;
+    }
+
+    g {
+      opacity: 0;
+    }
+
+    & .intro {
+      display: none;
+    }
+
+    & #logo {
+      max-width: 74px;
+      margin-top: 0px;
+      background: #000024;
+
+      @media (min-width: 768px) {
+        max-width:100px;
+      }
+
+      & .surname {
+        opacity:0;
+      }
+
+      & #s-text2 > svg, 
+      & #s-text > svg {
+          stroke-width:5;
+      }
+
+      .text {
+        text-shadow:none;
+      }
+
+    }
+  }
+  
+}
+
+
+
+
