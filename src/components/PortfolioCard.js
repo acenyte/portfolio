@@ -14,8 +14,6 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
-import ChevronLeftRounded from '@material-ui/icons/ChevronLeftRounded';
 import IconButton from '@material-ui/core/IconButton';
 
 import githubLogo from '../assets/images/github.svg';

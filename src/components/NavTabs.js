@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 
 import PortfolioCard from './PortfolioCard'
+import About from './About'
 
 import '../styles/nav.scss';
 
@@ -72,7 +73,7 @@ function NavTabs() {
 
       {value === 1 && 
         <TabContainer>
-          I am what i am
+          <About/>
         
         </TabContainer>}
         

@@ -1,0 +1,83 @@
+.about {
+  padding: 30px;
+  overflow: auto;
+  height: calc(100vh - 130px);
+  display: flex;
+  flex-wrap: wrap;
+  
+
+  & .contact {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    align-items: center;
+
+    @media (min-width: 768px) {
+      width:45%;
+    }
+
+    & .profile {
+      width: 200px;
+      height:200px;
+      display: block;
+      margin: 30px 0 10px;
+    }
+
+    & .MuiIconButton-root {
+      display: block;
+      padding: 10px;
+      width: 275px;
+      margin-left: 40px;
+
+      .MuiIconButton-label {
+        justify-content: flex-start;
+      }
+
+      & a {
+        color: #2bb8f0;
+        font-size: 0.8em;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        font-family: 'Oswald', Helvetica, sans-serif;
+
+        &:hover {
+          font-weight: 500;
+        }
+        
+
+        & svg, & img {
+          width: 30px;
+          font-size: 1.2em;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  & .bio {
+
+    width: 100%;
+    
+
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+    h2 {
+      font-family: 'Monoton', sans-serif;
+      font-size: 3em;
+      font-weight: 400;
+      
+    }
+
+    em {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+      font-size: 1.5em;
+    }
+
+    p {
+      font-size: 1.25em;
+    }
+  }
+}

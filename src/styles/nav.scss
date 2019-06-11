@@ -1,12 +1,12 @@
 #nav-bar {
   position: fixed;
-  top: 400px;
+  top: 60%;
   left: 0%;
   width: 100%;
   transition: all 0.75s ease-in;
 
   @media (min-width: 768px) {
-    top: 530px;
+    top: 500px;
   }
 
   & .MuiAppBar-root.MuiAppBar-colorPrimary {
@@ -51,6 +51,10 @@
     display:none;
   }
 
+  & .about {
+    display: none;
+  }
+
   &.small {
 
     top: 40px;
@@ -78,6 +82,10 @@
 
     & .swiper-container {
       display: block;
+    }
+
+    & .about {
+      display: flex;
     }
 
     
