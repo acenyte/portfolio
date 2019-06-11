@@ -4,36 +4,26 @@ import React from 'react';
 import '../styles/header.scss';
 
 function Header() {
-  return (
-    
-    window.addEventListener('scroll',function() {
-      if (window.scrollY > 100) {
-        
-        
-        if (!document.getElementById("header").classList.contains('small')) {
-          let animationToClose = document.getElementsByClassName("animation-to-close");
-          
-          for (let i = 0; i < animationToClose.length ; i++) {
-            animationToClose[i].beginElement();
-          }
-          document.getElementById("header").classList.add("small")
-        }
-  
-      } else {
-        if (document.getElementById("header").classList.contains('small')) {
-          let animationToOpen = document.getElementsByClassName("animation-to-open");
 
-          for (let i = 0; i < animationToOpen.length ; i++) {
-            animationToOpen[i].beginElement();
-          }
+  function growHeader() {
+    if (document.getElementById("header").classList.contains('small')) {
+      let animationToOpen = document.getElementsByClassName("animation-to-open");
 
-          document.getElementById("header").classList.remove("small")
-        }
+      for (let i = 0; i < animationToOpen.length ; i++) {
+        animationToOpen[i].beginElement();
       }
 
-    }),
+      document.getElementById("header").classList.remove("small")
+      document.getElementById("nav-bar").classList.remove("small")
+      
+    }
+  }
+
+
+  return (
+
     <div id="header">
-      <svg viewBox="-58 0 600 300" id="logo">
+      <svg viewBox="-58 0 600 300" id="logo" onClick={growHeader}>
 
         <symbol id="s-text2" stroke="#dc2671" fill="none">
 
@@ -133,7 +123,7 @@ function Header() {
         <symbol id="s-text">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="-26 0 540 230">
-            <polygon filter="url(#glow)" points="384 180.38 192 210.38 0 180.38 0 22 192 0 384 22 384 180.38">
+            <polygon stroke="#2bb8f0" points="384 180.38 192 210.38 0 180.38 0 22 192 0 384 22 384 180.38">
               <animate className="animation-to-close" 
                         begin="indefinite" 
                         fill="freeze" 
@@ -152,7 +142,7 @@ function Header() {
           </svg>
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 0 520 230">
-            <polygon filter="url(#glow)" points="384 180.38 192 210.38 0 180.38 0 22 192 0 384 22 384 180.38">
+            <polygon stroke="#2bb8f0" points="384 180.38 192 210.38 0 180.38 0 22 192 0 384 22 384 180.38">
               <animate className="animation-to-close" 
                         begin="indefinite" 
                         fill="freeze" 
@@ -171,7 +161,7 @@ function Header() {
           </svg>
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 0 500 230">
-            <polygon filter="url(#glow)" points="384 180.38 192 210.38 0 180.38 0 22 192 0 384 22 384 180.38">
+            <polygon stroke="#2bb8f0" points="384 180.38 192 210.38 0 180.38 0 22 192 0 384 22 384 180.38">
               <animate className="animation-to-close" 
                         begin="indefinite" 
                         fill="freeze" 
@@ -189,7 +179,7 @@ function Header() {
             </polygon>
           </svg>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 480 230">
-            <polygon filter="url(#glow)" points="384 180.38 192 210.38 0 180.38 0 22 192 0 384 22 384 180.38">
+            <polygon stroke="#2bb8f0" points="384 180.38 192 210.38 0 180.38 0 22 192 0 384 22 384 180.38">
               <animate className="animation-to-close" 
                         begin="indefinite" 
                         fill="freeze" 
@@ -223,18 +213,6 @@ function Header() {
 
           </g>
 
-          <filter id="glow">
-
-            <feGaussianBlur stdDeviation="5" result="StrokePaint" fill="blue" stroke="blue" />
-            <feMerge fill="blue" stroke="blue">
-              <feMergeNode in="StrokePaint" fill="blue" stroke="blue" />
-              <feMergeNode in="StrokePaint" fill="blue" stroke="blue" />
-              <feMergeNode in="SourceGraphic" fill="blue" stroke="blue" />
-
-
-            </feMerge>
-          </filter>
-
         </symbol>
 
         <use xlinkHref="#s-text2"></use>
@@ -244,6 +222,7 @@ function Header() {
 
       <p className="intro">
         Front-end Web Developer 
+        {/* <span> for hire </span> */}
       </p>
 
 

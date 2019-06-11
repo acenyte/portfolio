@@ -1,10 +1,10 @@
 //$colors: #dc2671, #2bb8f0;
 $colors: #2bb8f0;
 $max: length($colors);
-$dash: 60;
-$dash-gap: 30;
+$dash: 100;
+$dash-gap: 50;
 $dash-space: $dash * ($max - 1) + $dash-gap * $max;
-$time: 15s;
+$time: 20s;
 $time-step: $time/$max;
 
 /* Main styles */
@@ -16,35 +16,18 @@ $time-step: $time/$max;
   stroke-linejoin: round;
   stroke-dasharray: $dash $dash-space;
   stroke-dashoffset: 0;
-  -webkit-animation: stroke $time infinite linear;
-  animation: stroke $time infinite linear;
+  -webkit-animation: stroke $time 10 linear;
+  animation: stroke $time 10 linear;
   
   @for $item from 1 through $max {
     &:nth-child(#{$max}n + #{$item}) {
       $color: nth($colors, $item);
-      
       stroke: $color;
       -webkit-animation-delay: -($time-step * $item);
       animation-delay: -($time-step * $item);
     }
   }
 
-  @media (min-width: 768px) { 
-    text-shadow: 0px 0px 5em blue;
-  }
-}
-
-polygon {
-  filter:none;
-  @media (min-width: 768px) { 
-    filter: url(#glow);
-  }
-}
-
-
-.cls-1 {
-  stroke-width: 0.75;
-  stroke-dasharray: 300 $dash-space;
 }
 
 
@@ -66,6 +49,11 @@ polygon {
   text-transform: uppercase;
 }
 
+#s-text {
+  polygon {stroke-width: 0.75;
+  stroke-dasharray: 200 ($dash-space*3);
+  }
+}
 
 
 
@@ -78,80 +66,52 @@ svg {
   display: block;
 }
 
-canvas {
-  display: block;
-  vertical-align: bottom;
-} 
-/* ---- particles.js container ---- */
-.particlec {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-size: 20%;
-  background-position: 50% 50%;
-}
-/* ---- stats.js ---- */
-.count-particles {
-  background: #000022;
-  position: absolute;
-  top: 48px;
-  left: 0;
-  width: 80px;
-  color: #13e8e9;
-  font-size: 0.8em;
-  text-align: left;
-  text-indent: 4px;
-  line-height: 14px;
-  padding-bottom: 2px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
-}
-.js-count-particles {
-  font-size: 1.1em;
-}
-#stats,
-.count-particles {
-  -webkit-user-select: none;
-  margin-top: 5px;
-  margin-left: 5px;
-}
-#stats {
-  border-radius: 3px 3px 0 0;
-  overflow: hidden;
-}
-.count-particles {
-  border-radius: 0 0 3px 3px;
-}
-
 #header {
   position: fixed;
   width: 100%;
   overflow: hidden;
   z-index: 9;
+  background-color: transparent;
+  transition: background-color 2s;
+  left:0;
+  top:0;
+    
 
   & #logo {
-    margin-top: 90px;
+    margin-top: 45px;
     padding-top: 10px;
-    
+    filter: drop-shadow( 0px 0px 3px rgba(0, 0, 255, 1));
+      -webkit-filter: drop-shadow( 0px 0px 3px rgba(0, 0, 255, 1));
     transition: all 1s ease-in-out;
   
     & .surname {
       transition: opacity 0.4s;
     }
+
     
   }
 
   & .intro {
-    font-size: 1.8em;
+    font-size: 2em;
     text-transform: uppercase;
     color: #fffce4;
     text-align: center;
     margin: 20px 0;
+    font-weight: 500;
+
+    @media (min-width: 768px) {
+      font-size: 2.2em;
+    }
   }
 
   &.small {
+
+    top:0;
+    background-color: #000024;
+    width: 100%;
+    left: 0;
+    filter: none;
+    -webkit-filter: none;
 
     & polygon {
       filter:none;
@@ -169,9 +129,12 @@ canvas {
       max-width: 74px;
       margin-top: 0px;
       background: #000024;
+      filter: drop-shadow( 0px 0px 0px rgba(0, 0, 255, 0));
+      -webkit-filter: drop-shadow( 0px 0px 0px rgba(0, 0, 255, 0));
+      cursor: pointer;
 
       @media (min-width: 768px) {
-        max-width:100px;
+        max-width:90px;
       }
 
       & .surname {

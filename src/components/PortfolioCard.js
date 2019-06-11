@@ -9,13 +9,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
+import ChevronLeftRounded from '@material-ui/icons/ChevronLeftRounded';
 import IconButton from '@material-ui/core/IconButton';
+
+import githubLogo from '../assets/images/github.svg';
 
 import '../styles/card.scss';
 
@@ -57,108 +60,193 @@ function PortfolioCard() {
     observer: true,
     observeParents: true,
     observeChildren: true,
-    rebuildOnUpdate: true
+    rebuildOnUpdate: true,
+    nested: true,
 
 
+  }
+  const params2 = {
+    effect: 'coverflow',
+    centeredSlides: true,
+    slideToClickedSlide: true,
+    slidesPerView: 'auto',
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows : false,
+    },
+    navigation: {
+      nextEl: '.button-next',
+      prevEl: '.button-prev',
+    }
+    
   }
   const FEED_QUERY = gql`
     {
       portfolioProjects {
         id
+        projectTitle
+        projectShortDescription
+        projectTechDescription
+        projectLiveLink
+        projectGit
         projectImages(orderBy: updatedAt_ASC) {
           id
+          url
+        }
+        projectIcon {
           url
         }
       }
     }
   `
-    let slides = []
-      
 
+  function getProjectTechStack(project) {
     
+    
+    return gql`
+              {
+                portfolioProjectTechStacks(where: {portfolioProjects_some: {id: "${project}"}}) {
+                  id
+                  techStackName
+                  techStackIcon {
+                    url
+                  }
+                }
+              }
 
+              `
+  }
+  
   function handleExpandClick() {
     setExpanded(!expanded);
+    setTimeout(function() {
+      document.getElementsByClassName('swiper-slide-active')[0].scrollTo(0, document.getElementsByClassName('swiper-slide-active')[0].scrollHeight+300)
+    },300)
+    
   }
 
   return (
-    
-    <Card className={classes.card}>
+    <Query query={FEED_QUERY}>
+      {({ loading, error, data }) => {
+        if (loading) return <div>Fetching</div>
+        if (error) return <div>Error</div>
 
-      <CardHeader
-        avatar={
-          <Avatar aria-label="Recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        title="Cadbury PS"
-      />
-      <Query query={FEED_QUERY}>
-          {({ loading, error, data }) => {
-            if (loading) return <div>Fetching</div>
-            if (error) return <div>Error</div>
+        
+        const allProjects = data.portfolioProjects
+        
 
-            const imageLinks = data.portfolioProjects[0].projectImages
+        return (
+          <Swiper {...params2} className='project-swiper'>
+            {allProjects.map(project =>
 
-            return (
-              <Swiper {...params}>
-                {imageLinks.map(item =>
-              
-                  <img src={item.url} key={item.id}/>
-
+              <div className="card-wrapper" key={project.id}>
                 
+                <Card className={classes.card}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="Recipe" className={classes.avatar}>
+                        <img src={project.projectIcon.url} alt=''/>
+                      </Avatar>
+                    }
+                    title={project.projectTitle}
+                  />
+
+                  <Swiper {...params}>
+                    {project.projectImages.map(item =>
+                      <img src={item.url} key={item.id} alt='' />
+                    )}
+                  </Swiper>
+
+                  <CardContent>
+                    <p variant="body2" color="textSecondary" component="p">
+                      {project.projectShortDescription}
+                    </p>
+                    <a href={project.projectLiveLink} target="_blank" rel="noopener noreferrer">
+                      {project.projectLiveLink}
+                    </a>
+                  </CardContent>
+
+                  <CardActions disableSpacing>
+                    <div className="button">
+                      <span onClick={handleExpandClick} className={expanded ? 'hidden' : 'shown'}>SHOW MORE</span>
+                      <span onClick={handleExpandClick} className={expanded ? 'shown' : 'hidden'}>SHOW LESS</span>
+                      <IconButton
+                        className={clsx(classes.expand, {
+                          [classes.expandOpen]: expanded,
+                        })}
+                        onClick={handleExpandClick}
+                        aria-expanded={expanded}
+                        aria-label="Show more"
+                      >
+                        <ExpandMoreIcon />
+                      </IconButton>
+                    </div>
+                  </CardActions>
+                  <Collapse in={expanded} timeout="auto" unmountOnExit>
+
+                    <CardContent>
+
+                      <b>Technology Stack:</b>
+                      <br></br>
+                      
+                      <Query query={getProjectTechStack(project.id)}>
+                        {({ loading, error, data }) => {
+                          if (loading) return <div>Fetching</div>
+                          if (error) return <div>Error</div>
+
+                          const techLinks = data.portfolioProjectTechStacks
+
+                          return (
+                            
+                              <div className="techstack-group">
+                                {techLinks.map( item =>
+                                    <div className="techstack" key={item.id}>
+                                      <img src={item.techStackIcon.url} alt=''/>
+                                      <span>{item.techStackName}</span>
+                                    </div>
+                                  )
+                                }
+                              </div>
+                            
+                          )
+
+                          }
+                        }
+                      </Query>
+                      {(() => {
+                        if (project.projectGit) {
+                          return <a className="techstack" href={project.projectGit} target="_blank" rel="noopener noreferrer">
+                                  <img src={githubLogo} alt="Git Hub logo"/>
+                                  {project.projectGit}
+                                </a>
+                        }
+                      })()}
                 
-              )}
-              </Swiper>
+                      <br></br>
+                      <p>
+                        <b>Technical Description:</b> <br></br>
+                        {project.projectTechDescription}
+                      </p>
 
-            )
+                    </CardContent>
+                    
+                  </Collapse>
+                  
+                </Card>
+              </div>
+            )}
+            
+          </Swiper>
+        )
 
-          }}
+      }}
 
-      </Query>
-
-
+    </Query>
 
 
-      <CardContent>
-        <p variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-           guests. Add 1 cup of frozen peas along with the mussels, if you like.
-      </p>
-      </CardContent>
-      <CardActions disableSpacing>
-        <span className={expanded ? 'hidden' : 'shown'}>SHOW MORE</span>
-        <span className={expanded ? 'shown' : 'hidden'}>SHOW LESS</span>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="Show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <p paragraph>Method:</p>
-          <p paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-            minutes.
-          </p>
-          <p paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-            heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-            browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-            and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-            pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </p>
-
-        </CardContent>
-      </Collapse>
-    </Card>
 
 
   );

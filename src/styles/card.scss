@@ -1,11 +1,186 @@
-.MuiCard-root {
-  margin-bottom: 50px;
+.card-wrapper {
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  max-width: 640px;
+  width: 80%;
+  opacity: 0.55;
 
-  & .shown {
-    display: inline-block;
+  @media (min-width: 768px) {
+    width: 60%;
   }
 
-  & .hidden {
-    display: none;
+  &.swiper-slide-active {
+    opacity:1;
   }
+  
+  & .MuiCard-root.MuiPaper-root {
+    
+    background-color: #1b1838;
+    color: #fffce4;
+    margin: 30px auto;
+    box-shadow: -2px -5px 7px 0px #dc26714d, 2px 5px 7px 0px #2bb8f036;
+    background-image: url('../assets/images/dots.svg'),linear-gradient(110deg, #dc26714d, #2b41f036);
+    max-width: none;
+    
+    @media (min-width: 768px) {
+      width: 86%;
+    }
+
+    & .shown {
+      display: inline-block;
+    }
+
+    & .hidden {
+      display: none;
+    }
+
+    & .MuiCardHeader-root {
+      padding: 8px;
+    }
+
+    & .MuiCardHeader-content{
+      span {
+        font-family: 'Oswald', Helvetica, sans-serif;
+        font-size: 1.5em;
+        font-weight: 500;
+      }
+    }
+
+    & .MuiIconButton-root {
+      padding: 4px;
+    }
+    
+
+    & .techstack-group {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 10px auto;
+    }
+
+    & .techstack {
+      display: flex;
+      justify-items: center;
+      align-items: center;
+      margin: 8px 12px 8px 0px;
+      width: 135px;
+      font-size: 0.9em;
+
+      @media (min-width: 768px) {
+        width: auto;
+        font-size: 0.9em;
+        margin: 8px 16px 8px 0px;
+      }
+
+      &:nth-child(even) {
+        margin-right: 0px;
+
+        @media (min-width: 768px) {
+          margin-right: 16px;
+        }
+      }
+
+      img {
+        width: 20px;
+        margin-right: 8px;
+
+        @media (min-width:768px ) {
+          width: 24px;
+        }
+        
+      }
+    }
+
+    & .MuiCollapse-container,
+    & .MuiCollapse-container p {
+      font-size: 1em;
+
+      .MuiCardContent-root {
+        padding-top: 0px;
+      }
+    }
+
+    & .MuiAvatar-root {
+      width:54px;
+      height: 54px;
+      background: #000024;
+
+      & img {
+        width: 80%;
+      }
+    }
+
+    & p {
+      font-size: 1.10em;
+      margin: 0 ;
+    }
+
+    & a {
+      display: block;
+      margin-top: 8px;
+      color: #fffce4;
+    }
+
+    & .MuiCardActions-root {
+      justify-content: flex-end;
+      padding: 0px 12px;
+      margin-bottom: 12px;
+
+      & .button {
+        cursor: pointer;
+        background: none;
+        width: 100px;
+        padding: 0 0 0 12px;
+        font-family: 'Oswald', Helvetica, sans-serif;
+        font-size: 0.85em;
+        color: #fffce4;
+        border-radius: 8px;
+        border:thin #fffce4 solid;
+      }
+    }
+
+    & .MuiSvgIcon-root {
+      fill:#fffce4;
+    }
+  }
+
+  
+
+
+}
+
+.button-next,
+.button-prev {
+    background-color: #000024;
+    position: absolute;
+    width: 35px;
+    height: 60px;
+    bottom: 50%;
+    right: 5px;
+    color: white;
+    z-index: 3;
+    background-size: 100% 100%;
+    border: 3px #dc2671 solid;
+    border-radius: 10px;
+    background-image: url(../assets/images/chevrons.svg);
+    cursor:pointer;
+
+    @media (min-width: 768px) {
+      width: 45px;
+      height: 80px;
+      right: 25px;;
+    }
+  }
+
+.button-prev {
+  left: 5px;
+  transform: rotate(180deg);
+
+  @media (min-width: 768px) {
+    left:25px;
+  }
+}
+
+.swiper-button-disabled {
+  opacity: 0.2;
+  cursor:not-allowed;
 }

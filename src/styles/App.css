@@ -1,8 +1,62 @@
+html {
+  background-image: linear-gradient(80deg, rgba(0,0,36,1) 4%, rgba(0,39,65,1) 11%, rgba(0,0,36,1) 19%, rgba(0,0,36,1) 31%, rgba(0,39,65,1) 37%, rgba(0,0,36,1) 44%, rgba(0,0,36,1) 48%, rgba(0,39,65,1) 52%, rgba(0,0,36,1) 58%, rgba(0,0,36,1) 62%, rgba(0,0,36,1) 70%, rgba(0,39,65,1) 77%, rgba(0,0,36,1) 84%);
+  background-size: 300% 120%;
+  -webkit-animation: Gradient 120s cubic-bezier(0.5,0.1,0.5,1) infinite;
+  -moz-animation: Gradient 120s cubic-bezier(0.5,0.1,0.5,1) infinite;
+  animation: Gradient 120s cubic-bezier(0.5,0.1,0.5,1) infinite;
+  background-attachment: fixed;
+  background-color:#000024;
+}
+
 body {
   overflow-x: hidden;
-  background: #000024;
-  background-size: 100%;
+  background: transparent;
+  background-size: 10px;
   font-family: 'Oswald', Helvetica, sans-serif;
   color: white;
   margin: 0;
+  background-image: url('../assets/images/techs.svg');
+  background-size: 260px;
+  padding: 15px;
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
+
+
+
+@-webkit-keyframes Gradient {
+0% {
+  background-position: 0% 100%
+}
+50% {
+  background-position: 100% 0%
+}
+100% {
+  background-position: 0% 100%
+}
+}
+
+@-moz-keyframes Gradient {
+0% {
+  background-position: 0% 50%
+}
+50% {
+  background-position: 100% 50%
+}
+100% {
+  background-position: 0% 50%
+}
+}
+
+@keyframes Gradient {
+0% {
+  background-position: 0% 50%
+}
+50% {
+  background-position: 100% 50%
+}
+100% {
+  background-position: 0% 50%
+}
 }

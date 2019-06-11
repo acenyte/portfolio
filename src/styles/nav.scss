@@ -1,0 +1,85 @@
+#nav-bar {
+  position: fixed;
+  top: 400px;
+  left: 0%;
+  width: 100%;
+  transition: all 0.75s ease-in;
+
+  @media (min-width: 768px) {
+    top: 530px;
+  }
+
+  & .MuiAppBar-root.MuiAppBar-colorPrimary {
+    background: none;
+    box-shadow: none;
+
+    & .custom-tab {
+      font-weight: 500;
+      font-size: 1.05em;
+      padding: 8px 16px;
+      text-transform: uppercase;
+      color: #fffce4;
+      margin: auto 5%;
+      text-align: center;
+      border-radius: 15px;
+      border: solid #fffce4 2px;
+      border-bottom-width: 3px;
+      cursor: pointer;
+      transition: border-bottom-width 0.3s;
+
+      @media (min-width: 768px) {
+        margin: auto 7.5%;
+        font-size: 1.15em;
+      }
+
+      &:hover {
+        border-bottom-width: 1px;
+      }
+
+      & .MuiTab-root {
+        display: none;
+      }
+    }
+
+    & .MuiTabs-indicator {
+      opacity: 0;
+    }
+    
+  }
+
+  & .swiper-container {
+    display:none;
+  }
+
+  &.small {
+
+    top: 40px;
+   
+
+    .MuiAppBar-root.MuiAppBar-colorPrimary {
+      background: #000024;
+      box-shadow:  0px 4px 5px 0px #110f43, 0px 1px 10px 0px #0d0b44;
+
+      .custom-tab {
+        border-color: transparent;
+  
+        & span { 
+        height: 0px;
+        display: block;
+        overflow: hidden;
+        }
+      }
+
+      & .MuiTabs-indicator {
+        opacity: 1;
+      }
+
+    }
+
+    & .swiper-container {
+      display: block;
+    }
+
+    
+  }
+}
